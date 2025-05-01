@@ -6,9 +6,13 @@ import { SubscribeMessage,
  } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { ChatMessageDto } from './dto/chat-message.dto';
+import { ChatService } from './chat.service';
+import { ChatModelDto } from './dto/chat-model.dto';
 
 @WebSocketGateway({namespace: ['chat']})
 export class ChatGateway {
+  constructor(private readonly chatService: ChatService) {}
+
   @WebSocketServer()
   server: Server;
 
@@ -19,9 +23,16 @@ export class ChatGateway {
   }
 
   @SubscribeMessage('message')
-  handleMessage(
+  async handleMessage(
     @MessageBody() body: ChatMessageDto,
-    @ConnectedSocket() client: Socket): void {
+    @ConnectedSocket() client: Socket) {
+
+    const doc: ChatModelDto = {
+      room_id: body.room_id,
+      sender_name: body.data.sender_name,
+      message: body.data.message
+    };
+    this.chatService.create(doc);
     
     client.emit('message', body.data.message);
     client.broadcast.to(body.room_id).emit("message", body.data.message);
