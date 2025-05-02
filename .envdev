@@ -5,3 +5,5 @@ DB_USERNAME="root"
 DB_PASSWORD="root"
 DB_DATABASE="gohome"
 MONGO_URL="mongodb://localhost:27017/"
+
+JWTKEY="wlfkfgksektlqkf"
