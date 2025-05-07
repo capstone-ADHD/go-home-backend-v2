@@ -16,7 +16,7 @@ export class ChatService {
     }
 
     async getChats(room_id: string) {
-        const models = await this.chatModel.find({ room_id }, {sender_name: 1, message: 1, _id: 0}).sort({ created_at: -1 }).exec();
+        const models = await this.chatModel.find({ room_id }, {sender_name: 1, message: 1, _id: 0}).sort({ created_at: 1 }).exec();
         //console.log(models);
         return { success: true, chat: models }
     }
