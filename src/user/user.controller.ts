@@ -12,14 +12,14 @@ export class UserController {
 
     @Post("register")
     async Register(@Body() body:UserSignupDto) {
-        const res = await this.userService.UserRegister(body);
+        const res = await this.userService.userRegister(body);
 
         return res;
     }
 
     @Post("login")
     async Login(@Body() body:UserLoginDto) {
-        const res = await this.userService.UserLogin(body); 
+        const res = await this.userService.userLogin(body); 
         
         return res;
     }
@@ -27,7 +27,7 @@ export class UserController {
     @UseGuards(JwtAuthGuard)
     @Get("profile")
     async UserProfile(@Req() req,) {
-        const res = await this.userService.UserProfile(req.user_name);
+        const res = await this.userService.userProfile(req.user_name);
 
         return res;
     }

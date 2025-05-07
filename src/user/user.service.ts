@@ -13,15 +13,15 @@ export class UserService {
             private readonly jwtService : JwtService
     ){}
 
-        async UserRegister(userSignupDto) {
+        async userRegister(userSignupDto) {
             const {email,password,name,sex,school,account} = userSignupDto;     
 
-            const idExist = await this.userRepo.findOne({where : {user_name : name}});
+            const idExist = await this.userRepo.findOne({where : {name : name}});
             if(idExist) {
                 throw new BadRequestException("user_name already exists");
             }
 
-            const emailExist = await this.userRepo.findOne({ where : {user_email : email}});
+            const emailExist = await this.userRepo.findOne({ where : {email : email}});
             if(emailExist) {
                 throw new BadRequestException("email already exists");
             }
@@ -29,12 +29,12 @@ export class UserService {
             const hashedPw = await bcrypt.hash(password,10);
 
             const res = await this.userRepo.save({
-                user_email:email,
-                user_pw:hashedPw,
-                user_name:name,
-                user_sex:sex,
-                user_school:school,
-                user_account:account        
+                email:email,
+                pw:hashedPw,
+                name:name,
+                sex:sex,
+                school:school,
+                account:account        
             });
 
             return {
@@ -43,20 +43,20 @@ export class UserService {
             
     }
 
-    async UserLogin(userLoginDto) {
+    async userLogin(userLoginDto) {
         const {email,password} = userLoginDto;
 
-        const emailRes = await this.userRepo.findOne({where : {user_email:email}})
+        const emailRes = await this.userRepo.findOne({where : {email:email}})
         if(!emailRes) {
            throw new BadRequestException("email does not exsist");
         }
 
-        const pwRes = await bcrypt.compare(password,emailRes.user_pw);
+        const pwRes = await bcrypt.compare(password,emailRes.pw);
         if(!pwRes) {
             throw new BadRequestException("password or email incorrect");
         }
         
-        const name = emailRes.user_name;
+        const name = emailRes.name;
         const Token = this.jwtService.sign({email,name},{expiresIn : "7d"});
 
         return {
@@ -65,14 +65,14 @@ export class UserService {
         };
     }
 
-    async UserProfile(name : string) {
-        const res = await this.userRepo.findOne({where : {user_name: name}})
+    async userProfile(name : string) {
+        const res = await this.userRepo.findOne({where : {name: name}})
 
         if(!res) {
             throw new BadRequestException("user not found")
         }
 
-        const { user_pw, ...user} = res;
+        const { pw, ...user} = res;
         return {
             "success": true,
             user
