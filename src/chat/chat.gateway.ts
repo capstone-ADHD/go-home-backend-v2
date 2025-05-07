@@ -32,7 +32,7 @@ export class ChatGateway {
       sender_name: body.data.sender_name,
       message: body.data.message
     };
-    this.chatService.create(doc);
+    this.chatService.saveMessage(doc);
     
     client.emit('message', body.data.message);
     client.broadcast.to(body.room_id).emit("message", body.data.message);

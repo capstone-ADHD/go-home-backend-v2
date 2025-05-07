@@ -10,9 +10,15 @@ export class ChatService {
         @InjectModel(ChatMessage.name) private chatModel: Model<ChatMessageDocument>
     ) {}
 
-    async create(dto: ChatModelDto) {
+    async saveMessage(dto: ChatModelDto) {
         const doc = new this.chatModel(dto);
-        return doc.save();
+        return await doc.save();
+    }
+
+    async getChats(room_id: string) {
+        const models = await this.chatModel.find({ room_id }, {sender_name: 1, message: 1, _id: 0}).exec();
+        //console.log(models);
+        return { success: true, chat: models }
     }
 
 }
