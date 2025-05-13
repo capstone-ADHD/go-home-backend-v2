@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ChatModule } from './chat/chat.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       }),
     }),
     ChatModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [ConfigService],
