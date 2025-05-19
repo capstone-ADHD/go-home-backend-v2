@@ -41,9 +41,10 @@ export class UserService {
                 "success":true
             };  
             
+            
     }
 
-    async userLogin(userLoginDto) {
+    async userLogin(userLoginDto,) {
         const {email,password} = userLoginDto;
 
         const emailRes = await this.userRepo.findOne({where : {user_email:email}})
@@ -56,8 +57,11 @@ export class UserService {
             throw new BadRequestException("password or email incorrect");
         }
         
+        const school_name=emailRes.school;
+        const id = emailRes.user_id;
         const name = emailRes.user_name;
-        const Token = this.jwtService.sign({email,name},{expiresIn : "7d"});
+
+        const Token = this.jwtService.sign({email,name,id,school_name},{expiresIn : "7d"});
 
         return {
             "success":true,
