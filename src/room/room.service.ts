@@ -16,7 +16,7 @@ export class RoomService {
   ){}
 
   async create(createRoomDto,user_id) {
-    const { title,meet_at,from,to,school_name,max_amount,sex } = createRoomDto;
+    const { title,meet_at,from,to,school_name,max_amount } = createRoomDto;
 
     const res = await this.roomRepo.save({
       title:title,
