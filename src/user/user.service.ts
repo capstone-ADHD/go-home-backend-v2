@@ -60,7 +60,6 @@ export class UserService {
         const school_name=emailRes.school;
         const id = emailRes.user_id;
         const name = emailRes.user_name;
-
         const Token = this.jwtService.sign({email,name,id,school_name},{expiresIn : "7d"});
 
         return {
