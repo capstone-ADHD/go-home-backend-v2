@@ -1,0 +1,11 @@
+.vscode
+.idea
+.git
+.gitignore
+.dockerignore
+Dockerfile
+*.md
+*.yml
+scripts
+node_modules/
+dist/
