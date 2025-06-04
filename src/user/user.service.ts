@@ -44,7 +44,7 @@ export class UserService {
             
     }
 
-    async userLogin(userLoginDto,) {
+    async userLogin(userLoginDto) {
         const {email,password} = userLoginDto;
 
         const emailRes = await this.userRepo.findOne({where : {user_email:email}})
