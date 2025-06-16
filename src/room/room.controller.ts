@@ -3,9 +3,10 @@ import { RoomService } from './room.service';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { JwtAuthGuard } from 'src/jwt/jwt-auth.guard';
 import { SearchRoomDto } from './dto/search-room.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiTags("rooms")
+@ApiBearerAuth('access-token')
 @Controller('rooms')
 export class RoomController {
   constructor(private readonly roomService: RoomService) {}
