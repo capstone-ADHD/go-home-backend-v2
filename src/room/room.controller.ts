@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Req, Query } from '@nestjs/common';
 import { RoomService } from './room.service';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { JwtAuthGuard } from 'src/jwt/jwt-auth.guard';
@@ -22,7 +22,7 @@ export class RoomController {
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '방 검색', description: '방을 검색함' })
   @ApiResponse({ status: 200, description: '성공적으로 방을 검색함' })
-  async search(@Body() body:SearchRoomDto,@Req() req) {
+  async search(@Query() body:SearchRoomDto,@Req() req) {
     return await this.roomService.search(body,req.user.profile.school_name);
   }
 

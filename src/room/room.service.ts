@@ -22,7 +22,6 @@ export class RoomService {
       title:title,
       owner_id:user_id,
       meet_at:meet_at,
-      sex:sex,
       from:from,
       to:to,
       school:school_name,
