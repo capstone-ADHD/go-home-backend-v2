@@ -13,7 +13,7 @@ export class UserController {
 
     @Post("register")
     @ApiOperation({ summary: '회원가입', description: '회원가입' })
-    @ApiResponse({ status: 200, description: '성공적으로 회원가입함ㅇㅇ' })
+    @ApiResponse({ status: 201, description: '성공적으로 회원가입함ㅇㅇ' })
     async Register(@Body() body:UserSignupDto) {
         const res = await this.userService.userRegister(body);
 
