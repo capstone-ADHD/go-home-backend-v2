@@ -10,7 +10,7 @@ async function bootstrap() {
     transform: true
   }));
 
-  app.setGlobalPrefix('api', { exclude: ['/'] })
+  app.setGlobalPrefix('api')
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Go-Home')
