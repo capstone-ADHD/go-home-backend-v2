@@ -25,7 +25,7 @@ export class RoomController {
   @ApiResponse({ status: 200, description: '성공적으로 방을 검색함' })
   async search(@Query() body:SearchRoomDto,@Req() req) {
     return await this.roomService.search(body,req.user.profile.school_name);
-  }
+  } 
 
   @Get(":room_id")
   @UseGuards(JwtAuthGuard)

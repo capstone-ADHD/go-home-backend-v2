@@ -47,7 +47,8 @@ export class RoomService {
         title:title,
         from:from,
         to:to,
-        meet_at:meet_at
+        meet_at:meet_at,
+        school:school_name
       }
     });
 
@@ -63,8 +64,7 @@ export class RoomService {
       res[i] = {
         ...res[i],
         now_amount: await this.roomMemRepo.count({ where: { room: { room_id: res[i].room_id } } })
-      };
-
+      };  
     }
 
     return {
