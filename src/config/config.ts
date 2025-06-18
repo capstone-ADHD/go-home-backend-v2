@@ -7,4 +7,5 @@ export default () => ({
     DB_DATABASE: process.env.DB_DATABASE,
     MONGO_URL: process.env.MONGO_URL,
     JWTKEY: process.env.JWTKEY,
+    NEIS_API_KEY: process.env.NEIS_API_KEY
   });
