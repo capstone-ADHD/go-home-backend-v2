@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ChatModule } from './chat/chat.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
+import { RoomModule } from './room/room.module';
 import { AppService } from './app.service';
 import { HttpModule } from '@nestjs/axios';
 
@@ -22,7 +23,7 @@ import { HttpModule } from '@nestjs/axios';
         database: configService.get<string>('DB_DATABASE'),
         entities: [__dirname + '/**/*.entity.{js,ts}'],
         //TODO 제발 배포할때는 이 옵션을 꺼
-        synchronize: true,
+        synchronize: false,
       }),
       inject: [ConfigService],
     }),
@@ -36,6 +37,7 @@ import { HttpModule } from '@nestjs/axios';
     HttpModule,
     ChatModule,
     UserModule,
+    RoomModule,
   ],
   controllers: [AppController],
   providers: [ConfigService, AppService],

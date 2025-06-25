@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { ConfigService,ConfigModule } from "@nestjs/config";
+import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt,Strategy } from "passport-jwt"
 
@@ -11,7 +11,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       secretOrKey: configService.get<string>('JWTKEY'),
     });
   }
-
+  
   async validate(payload: any) {
     return { profile: payload };
   }
