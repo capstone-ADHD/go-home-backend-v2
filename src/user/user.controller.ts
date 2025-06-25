@@ -29,13 +29,22 @@ export class UserController {
         return res;
     }
 
-
-    @UseGuards(JwtAuthGuard)
     @Get("profile")
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({ summary: '프로필', description: '프로필 정보를 불러옴' })
     @ApiResponse({ status: 200, description: '성공적으로 프로필을 불러옴' })
     async UserProfile(@Req() req,) {
         const res = await this.userService.userProfile(req.user_name);
+
+        return res;
+    }
+
+    @Post("token")
+    @UseGuards(JwtAuthGuard)
+    @ApiOperation({ summary: '토큰 업데이트', description: '유저의 디바이스 토큰을 업데이트' })
+    @ApiResponse({ status: 201, description: '토큰 업데이트 성공' })
+    async updateDeviceToken(@Req() req, @Body('device_token') dtoken) {
+        const res = await this.userService.updateDeviceToken(req.user_id, dtoken);
 
         return res;
     }
