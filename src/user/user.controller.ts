@@ -30,8 +30,9 @@ export class UserController {
     }
 
 
-    @UseGuards(JwtAuthGuard)
+    
     @Get("profile")
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({ summary: '프로필', description: '프로필 정보를 불러옴' })
     @ApiResponse({ status: 200, description: '성공적으로 프로필을 불러옴' })
     async UserProfile(@Req() req,) {
