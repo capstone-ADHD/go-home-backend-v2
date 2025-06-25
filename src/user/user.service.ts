@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "./entities/user.entity";
 import { Repository } from "typeorm";
@@ -80,5 +80,15 @@ export class UserService {
             "success": true,
             user
         }
-    } 
+    }
+
+    async updateDeviceToken(user_id, device_token: string) {
+        const result = await this.userRepo.update(
+            { user_id },
+            { device_token }
+        );
+
+        if (!result) throw new InternalServerErrorException();
+        return { success: true }
+    }
 }
