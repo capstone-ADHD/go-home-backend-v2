@@ -6,6 +6,8 @@ import { ChatModule } from './chat/chat.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { RoomModule } from './room/room.module';
+import { AppService } from './app.service';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -32,11 +34,12 @@ import { RoomModule } from './room/room.module';
         uri: configService.get<string>('MONGO_URL'),
       }),
     }),
+    HttpModule,
     ChatModule,
     UserModule,
     RoomModule,
   ],
   controllers: [AppController],
-  providers: [ConfigService],
+  providers: [ConfigService, AppService],
 })
 export class AppModule {}
