@@ -11,7 +11,9 @@ import { ChatModelDto } from './dto/chat-model.dto';
 
 @WebSocketGateway({namespace: ['chat']})
 export class ChatGateway {
-  constructor(private readonly chatService: ChatService) {}
+  constructor(
+    private readonly chatService: ChatService
+  ) {}
 
   @WebSocketServer()
   server: Server;
@@ -36,5 +38,7 @@ export class ChatGateway {
     
     client.emit('message', body.data.message);
     client.broadcast.to(body.room_id).emit("message", body.data.message);
+
+    this.chatService.sendPushMultiUser(body.room_id, body.data.sender_name, body.data.message);
   }
 }

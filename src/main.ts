@@ -10,12 +10,21 @@ async function bootstrap() {
     transform: true
   }));
 
-  app.setGlobalPrefix('api', { exclude: ['/'] })
+  app.setGlobalPrefix('api')
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Go-Home')
     .setDescription('Go-Home API description')
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        in: 'header',
+      },
+      'access-token',
+    )
     .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('swagger', app, swaggerDocument);
