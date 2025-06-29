@@ -44,7 +44,7 @@ export class UserController {
     @ApiOperation({ summary: '토큰 업데이트', description: '유저의 디바이스 토큰을 업데이트' })
     @ApiResponse({ status: 201, description: '토큰 업데이트 성공' })
     async updateDeviceToken(@Req() req, @Body('device_token') dtoken) {
-        const res = await this.userService.updateDeviceToken(req.user_id, dtoken);
+        const res = await this.userService.updateDeviceToken(req.user.profile.id, dtoken);
 
         return res;
     }
