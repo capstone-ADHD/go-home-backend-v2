@@ -1,5 +1,5 @@
 import { getMetadataArgsStorage, Repository } from 'typeorm';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable } from '@nestjs/common';
 import { Room } from './entities/room.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { roomMem } from './entities/room-mem.entity';
@@ -73,10 +73,25 @@ export class RoomService {
     };
   }
 
+  async list(user_id:number) {
+      try {
+        const eres = await this.roomMemRepo.find({
+           where : {user_id:user_id},
+           relations:['room']
+          })
+
+        console.log(user_id ,eres)
+
+        return eres;
+      } catch(e) {
+        throw new BadRequestException('you are not in any active rooms.')
+      }
+  }
+
   async join(room_id:number,user_id:number) {
     try {
 
-      const eres = await this.roomRepo.findOne ({where: { room_id : room_id }})
+      const eres = await this.roomRepo.findOne({where: { room_id : room_id }})
 
       if(eres === null) {
         throw new BadRequestException("room does not exist");
