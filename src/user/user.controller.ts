@@ -4,6 +4,7 @@ import { UserService } from "./user.service";
 import { UserLoginDto } from "./dto/user-login.dto";
 import { JwtAuthGuard } from "../jwt/jwt-auth.guard";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { UpdateTokenDto } from "./dto/update-token.dto";
 
 @Controller("user") 
 export class UserController {
@@ -43,8 +44,8 @@ export class UserController {
     @UseGuards(JwtAuthGuard)
     @ApiOperation({ summary: '토큰 업데이트', description: '유저의 디바이스 토큰을 업데이트' })
     @ApiResponse({ status: 201, description: '토큰 업데이트 성공' })
-    async updateDeviceToken(@Req() req, @Body('device_token') dtoken) {
-        const res = await this.userService.updateDeviceToken(req.user_id, dtoken);
+    async updateDeviceToken(@Req() req, @Body() body: UpdateTokenDto) {
+        const res = await this.userService.updateDeviceToken(req.user_id, body.dtoken);
 
         return res;
     }
