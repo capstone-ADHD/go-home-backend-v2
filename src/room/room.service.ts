@@ -54,7 +54,7 @@ export class RoomService {
 
     if (res.length === 0) {
       return {
-        "succes": false
+        "success": false
       };
     }
 

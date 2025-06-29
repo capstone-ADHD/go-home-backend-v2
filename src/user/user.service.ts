@@ -41,6 +41,7 @@ export class UserService {
                 "success":true
             };  
             
+            
     }
 
     async userLogin(userLoginDto) {
@@ -56,10 +57,10 @@ export class UserService {
             throw new BadRequestException("password or email incorrect");
         }
         
-        const name = emailRes.user_name;
+        const school_name=emailRes.school;
         const id = emailRes.user_id;
-
-        const Token = this.jwtService.sign({email,name,id},{expiresIn : "7d"});
+        const name = emailRes.user_name;
+        const Token = this.jwtService.sign({email,name,id,school_name},{expiresIn : "7d"});
 
         return {
             "success":true,

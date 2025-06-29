@@ -1,8 +1,9 @@
 PORT=3000
-DB_HOST="localhost"
+DB_HOST=localhost
 DB_PORT=3306
-DB_USERNAME="root"
-DB_PASSWORD="root"
-DB_DATABASE="gohome"
-MONGO_URL="mongodb://localhost:27017/gohome"
-JWTKEY="secret_key"
+DB_USERNAME=root
+DB_PASSWORD=root
+DB_DATABASE=gohome
+MONGO_URL=mongodb://localhost:27017/gohome
+JWTKEY=secret_key
+NEIS_API_KEY=neis_api_key
