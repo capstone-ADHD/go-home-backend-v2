@@ -85,7 +85,10 @@ export class RoomService {
         for (let i = 0; i < res.length; i++) {
           res[i] = {
             ...res[i],
-            now_amount: await this.roomMemRepo.count({ where: { room: { room_id: res[i].room_id } } })
+            room: {
+              ...res[i].room,
+              now_amount: await this.roomMemRepo.count({ where: { room: { room_id: res[i].room.room_id } } })
+            }
           };  
         }
 
