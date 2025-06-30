@@ -8,7 +8,6 @@ import { UserModule } from './user/user.module';
 import { RoomModule } from './room/room.module';
 import { AppService } from './app.service';
 import { HttpModule } from '@nestjs/axios';
-import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
   imports: [
@@ -39,7 +38,6 @@ import { FirebaseModule } from './firebase/firebase.module';
     ChatModule,
     UserModule,
     RoomModule,
-    FirebaseModule,
   ],
   controllers: [AppController],
   providers: [ConfigService, AppService],

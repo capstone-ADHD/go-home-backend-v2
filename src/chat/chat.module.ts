@@ -7,11 +7,10 @@ import { ChatController } from './chat.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/user/entities/user.entity';
 import { roomMem } from 'src/room/entities/room-mem.entity';
-import { FirebaseService } from 'src/firebase/firebase.service';
 import { Room } from 'src/room/entities/room.entity';
 
 @Module({
-  providers: [ChatGateway, ChatService, FirebaseService],
+  providers: [ChatGateway, ChatService],
   imports: [
     MongooseModule.forFeature([{ name: ChatMessage.name, schema: ChatMessageSchema }]),
     TypeOrmModule.forFeature([User, roomMem, Room]),
