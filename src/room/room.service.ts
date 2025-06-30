@@ -59,8 +59,6 @@ export class RoomService {
     }
 
     for (let i = 0; i < res.length; i++) {
-      const room_id = res[i].room_id;
-      
       res[i] = {
         ...res[i],
         now_amount: await this.roomMemRepo.count({ where: { room: { room_id: res[i].room_id } } })
@@ -75,14 +73,23 @@ export class RoomService {
 
   async list(user_id:number) {
       try {
-        const eres = await this.roomMemRepo.find({
+        let res: any = await this.roomMemRepo.find({
            where : {user_id:user_id},
            relations:['room']
           })
 
-        console.log(user_id ,eres)
+        console.log(user_id ,res)
 
-        return eres;
+        if (res.length == 0) return res;
+
+        for (let i = 0; i < res.length; i++) {
+          res[i] = {
+            ...res[i],
+            now_amount: await this.roomMemRepo.count({ where: { room: { room_id: res[i].room_id } } })
+          };  
+        }
+
+        return res;
       } catch(e) {
         throw new BadRequestException('you are not in any active rooms.')
       }
