@@ -19,7 +19,7 @@ export class RoomController {
     return await this.roomService.create(body,req.user.profile.id);
   }
 
-  @Get()
+  @Get('search')
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '방 검색', description: '방을 검색함' })
   @ApiResponse({ status: 200, description: '성공적으로 방을 검색함' })
@@ -27,7 +27,15 @@ export class RoomController {
     return await this.roomService.search(body,req.user.profile.school_name);
   } 
 
-  @Get(":room_id")
+  @Get('')
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: '참가중인 방 조회', description: '현재 참가중인 방을 조회함' })
+  @ApiResponse({ status: 200, description: '성공적으로 방을 조회함' })
+  async list(@Req() req:any) {
+    return await this.roomService.list(req.user.profile.id);
+  } 
+
+  @Post(":room_id")
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '방 참가', description: '방을 참가함' })
   @ApiResponse({ status: 200, description: '성공적으로 방에 참가함' })
